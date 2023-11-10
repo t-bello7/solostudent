@@ -4,10 +4,7 @@ import ErrorPage from './404';
 import Users from './Users';
 import Adverts from './Adverts';
 import Admin from './Admin';
-import Community from './Community';
-import SiteSetting from './SiteSetting';
-import StaticPage from './StaticPage';
-import SeoSetting from './SeoSetting';
+import Students from './Students';
 
 export {
   Login,
@@ -16,8 +13,5 @@ export {
   Users,
   Admin,
   Adverts,
-  Community,
-  SiteSetting,
-  StaticPage,
-  SeoSetting,
+  Students
 };

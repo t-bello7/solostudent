@@ -6,14 +6,9 @@ import {
   Home,
   Login,
   Users,
-  Adverts,
-  Admin,
-  Community,
-  SiteSetting,
-  StaticPage,
-  SeoSetting,
+  Students
 } from './pages';
-import DashboardLayout from './components/Layout/DashboardLayout';
+import DashboardLayout from './components/layout/DashboardLayout';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -27,32 +22,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/admin',
-        element: <Admin />,
-      },
-      {
         path: '/users',
         element: <Users />,
       },
       {
-        path: '/adverts',
-        element: <Adverts />,
-      },
-      {
         path: '/community',
-        element: <Community />,
-      },
-      {
-        path: '/site-settings',
-        element: <SiteSetting />,
-      },
-      {
-        path: '/static-page',
-        element: <StaticPage />,
-      },
-      {
-        path: '/seo-settings',
-        element: <SeoSetting />,
+        element: <Students />,
       },
     ],
   },

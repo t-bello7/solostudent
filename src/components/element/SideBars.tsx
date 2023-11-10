@@ -31,7 +31,7 @@ const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const items: MenuItem[] = [
     getItem(
-      <a href="/">Dashboard </a>,
+      <a href="/">Dashboard</a>,
       '1',
       <HomeIcon color="fill-blue-500" />,
     ),
