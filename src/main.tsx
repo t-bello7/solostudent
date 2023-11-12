@@ -5,7 +5,7 @@ import {
   ErrorPage,
   Home,
   Login,
-  Users,
+  Profile,
   Students
 } from './pages';
 import DashboardLayout from './components/layout/DashboardLayout';
@@ -22,11 +22,11 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/users',
-        element: <Users />,
+        path: '/profile',
+        element: <Profile />,
       },
       {
-        path: '/community',
+        path: '/students',
         element: <Students />,
       },
     ],

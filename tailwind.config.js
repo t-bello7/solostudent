@@ -4,6 +4,11 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        primaryColor: "#B9E503",
+        secondaryColor: "#00A902",
+        blueVariantColor: "#017e9c"
+      },
       fontFamily: {
         lexandDeca: ["Lexend Deca"],
       }

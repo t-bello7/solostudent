@@ -1,15 +1,12 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
 import {
   AdminIcon,
-  ContentIcon,
   FriendIcon,
   HomeIcon,
-  KeyIcon,
-  MegaPhoneIcon,
-  SecurityIcon,
-  UserIcon,
+  ExitIcon
 } from '../../assets/icons';
 
 const { Sider } = Layout;
@@ -31,72 +28,45 @@ const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const items: MenuItem[] = [
     getItem(
-      <a href="/">Dashboard</a>,
+      <Link to="/">Overview</Link>,
       '1',
       <HomeIcon color="fill-blue-500" />,
     ),
     getItem(
-      <a href="/admin">Admin </a>,
+      <Link to="/profile">Profile </Link>,
       '2',
       <AdminIcon color="fill-blue-500" />,
     ),
     getItem(
-      <a href="/users">Users </a>,
-      '3',
-      <UserIcon color="fill-blue-500" />,
-    ),
-    getItem(
-      <a href="/adverts">Adverts </a>,
-      '4',
-      <MegaPhoneIcon color="fill-blue-500" />,
-    ),
-    getItem(
-      <a href="/community">Community </a>,
+      <Link to="/students">Students </Link>,
       '5',
       <FriendIcon color="fill-blue-500" />,
     ),
-    getItem(
-      <a href="/site-settings">Site Settings </a>,
-      '6',
-      <SecurityIcon color="fill-blue-500" />,
-    ),
-    getItem(
-      <a href="/static-page">Static Pages </a>,
-      '7',
-      <ContentIcon color="fill-blue-500" />,
-    ),
-    getItem(
-      <a href="/seo-settings">SEO Settings </a>,
-      '8',
-      <KeyIcon color="fill-blue-500" />,
-    ),
-
-    // getItem(<span onClick={() => signOut()}>Logout</span>, '9', <LogoutOutlined rotate={180} />),
+    getItem(<span onClick={() => console.log("logout")}>Logout</span>, '9', <ExitIcon color='fill-blue-500'/>),
   ];
 
   return (
     <Sider
       trigger={null}
-      // className="bg-lightGray dark:bg-darkBlack [&>.ant-layout-sider-trigger]:bg-darkBlack
-      //  [&>.ant-layout-sider-trigger]:text-white [&>.ant-layout-sider-trigger]:dark:bg-white
-      //  [&>.ant-layout-sider-trigger]:dark:text-darkBlack"
       collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
+      className="border-r-2 border-secondaryColor100 bg-white
+      [&>.ant-layout-sider-children]:my-12
+      [&>.ant-layout-sider-children]:flex
+      [&>.ant-layout-sider-children]:flex-col
+      [&>.ant-layout-sider-children]:items-center
+      "
     >
-      {/* <Link href='/'>
-            {
-              theme !== 'dark' ? (<Image src={logo} alt="assetxpro logos" />)
-              :(<Image src={darkLogo} alt="assetxpro logos" />)
-
-            }
-            </Link> */}
-      <div>Campus Hub</div>
+      <Link to="/">SoloStudent</Link>  
       <Menu
-        className=""
         defaultSelectedKeys={['1']}
         mode="inline"
         items={items}
+        className="mt-4 space-y-4
+        [&>.ant-menu-item-selected>.ant-menu-item-icon]:text-secondaryColor100
+        [&>.ant-menu-item]:space-x-4
+        "
       />
     </Sider>
   );
