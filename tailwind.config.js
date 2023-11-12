@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
 export default {
   important: true,
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -10,7 +11,8 @@ export default {
         blueVariantColor: "#017e9c"
       },
       fontFamily: {
-        lexandDeca: ["Lexend Deca"],
+        solway: ["Solway", ...defaultTheme.fontFamily.sans],
+        cantarell: ["Cantarell", ...defaultTheme.fontFamily.sans],
       }
     },
   },

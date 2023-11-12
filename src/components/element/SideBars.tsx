@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
@@ -24,25 +24,24 @@ const getItem = (
   children,
   label,
 } as MenuItem);
-const Sidebar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+const Sidebar: FC<{collapsed: boolean}> = ({collapsed}) => {
   const items: MenuItem[] = [
     getItem(
-      <Link to="/">Overview</Link>,
+      <Link to="/" className={`${collapsed ? 'text-white' :''}`}>Overview</Link>,
       '1',
       <HomeIcon color="fill-blue-500" />,
     ),
     getItem(
-      <Link to="/profile">Profile </Link>,
+      <Link to="/profile" className={`${collapsed ? 'text-white' :''}`}>Profile </Link>,
       '2',
       <AdminIcon color="fill-blue-500" />,
     ),
     getItem(
-      <Link to="/students">Students </Link>,
+      <Link to="/students" className={`${collapsed ? 'text-white' :''}`}>Students </Link>,
       '5',
       <FriendIcon color="fill-blue-500" />,
     ),
-    getItem(<span onClick={() => console.log("logout")}>Logout</span>, '9', <ExitIcon color='fill-blue-500'/>),
+    getItem(<span onClick={() => console.log("logout")} className={`${collapsed ? 'text-white' :''}`}>Logout</span>, '9', <ExitIcon color='fill-blue-500'/>),
   ];
 
   return (
@@ -50,7 +49,6 @@ const Sidebar = () => {
       trigger={null}
       collapsible
       collapsed={collapsed}
-      onCollapse={(value) => setCollapsed(value)}
       className="border-r-2 border-secondaryColor100 bg-white
       [&>.ant-layout-sider-children]:my-12
       [&>.ant-layout-sider-children]:flex
