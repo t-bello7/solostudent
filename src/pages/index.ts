@@ -5,9 +5,5 @@ import Profile from './Profile';
 import Students from './Students';
 
 export {
-  Login,
-  Home,
-  ErrorPage,
-  Profile,
-  Students
+  Login, Home, ErrorPage, Profile, Students,
 };

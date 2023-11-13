@@ -6,10 +6,5 @@ import LeftIcon from './leftIcon';
 import RightIcon from './rightIcon';
 
 export {
-  AdminIcon,
-  ExitIcon,
-  FriendIcon,
-  HomeIcon,
-  LeftIcon,
-  RightIcon
+  AdminIcon, ExitIcon, FriendIcon, HomeIcon, LeftIcon, RightIcon,
 };

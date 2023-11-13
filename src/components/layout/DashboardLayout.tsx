@@ -6,20 +6,25 @@ import { RightIcon, LeftIcon } from '../../assets/icons';
 
 const { Content } = Layout;
 const DashboardLayout: FC = () => {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
-  <Layout className="min-h-[100vh] font-cantarell">
-    <Sidebar collapsed={collapsed} />
-    <Content className='m-12 font-cantarell'>
-      <div onClick={() => setCollapsed(!collapsed)} className={`transition-all w-5 h-5 border rounded-full border-primaryColor absolute ${collapsed ? 'left-[75px]' :'left-[190px]'} top-[22vh] bg-white`}>
-        {
-          collapsed ? ( <RightIcon /> ) : (<LeftIcon />)
-        }   
-      </div>
-      <Outlet />
-    </Content>
-  </Layout>
-)};
+    <Layout className="min-h-[100vh] font-cantarell">
+      <Sidebar collapsed={collapsed} />
+      <Content className="m-12 font-cantarell">
+        <button
+          type="button"
+          onClick={() => setCollapsed(!collapsed)}
+          className={`absolute h-5 w-5 rounded-full border border-primaryColor transition-all ${
+            collapsed ? 'left-[75px]' : 'left-[190px]'
+          } top-[22vh] bg-white`}
+        >
+          {collapsed ? <RightIcon /> : <LeftIcon />}
+        </button>
+        <Outlet />
+      </Content>
+    </Layout>
+  );
+};
 
 export default DashboardLayout;

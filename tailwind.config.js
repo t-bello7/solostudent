@@ -6,14 +6,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryColor: "#B9E503",
-        secondaryColor: "#00A902",
-        blueVariantColor: "#017e9c"
+        primaryColor: '#B9E503',
+        secondaryColor: '#00A902',
+        blueVariantColor: '#017e9c',
       },
       fontFamily: {
-        solway: ["Solway", ...defaultTheme.fontFamily.sans],
-        cantarell: ["Cantarell", ...defaultTheme.fontFamily.sans],
-      }
+        solway: ['Solway', ...defaultTheme.fontFamily.sans],
+        cantarell: ['Cantarell', ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   plugins: [],

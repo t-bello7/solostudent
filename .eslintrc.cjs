@@ -10,16 +10,16 @@ module.exports = {
     'airbnb-typescript',
     'plugin:react/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'build/', 'node_modules/'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'build/', 'node_modules/','postcss.config.js', 'prettier.config.js', 'tailwind.config.js', 'vite.config.ts','vitest.config.ts'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
-    "no-restricted-syntax": [
-        "error",
-        "FunctionExpression",
-        "FunctionDeclaration"
-      ],
-    "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
+    'no-restricted-syntax': [
+      'error',
+      'FunctionExpression',
+      'FunctionDeclaration',
+    ],
+    'react/jsx-filename-extension': ['warn', { extensions: ['.ts', '.tsx'] }],
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
@@ -27,16 +27,20 @@ module.exports = {
     'no-shadow': 'off',
     'comma-dangle': 'off',
     quotes: 'off',
-    "react/function-component-definition": [2, {
-      "namedComponents": "arrow-function",
-      "unnamedComponents": "arrow-function"
-    }],
-    "react/react-in-jsx-scope": "off",
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
+    'react/react-in-jsx-scope': 'off',
     'import/prefer-default-export': 'off',
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
-
   parserOptions: {
+    sourceType: "module",
+    tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'], // Specify it only for TypeScript files
   },
 };
