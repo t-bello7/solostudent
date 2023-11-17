@@ -1,11 +1,9 @@
 import { FC } from 'react';
-import { SectionTitle } from '../components/atoms';
+import { Heading } from '../components/atoms';
 
 const Profile: FC = () => (
   <div>
-    {' '}
-    <SectionTitle title="Profile" />
-    {' '}
+    <Heading headingType="page" title="Profile" />
   </div>
 );
 

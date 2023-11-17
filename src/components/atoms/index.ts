@@ -1,3 +1,4 @@
-import SectionTitle from './SectionTitle';
+import Heading from './Heading';
+import Button from './Button';
 
-export { SectionTitle };
+export { Heading, Button };
