@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   ErrorPage, Home, Login, Profile, Students,
 } from './pages';
-import DashboardLayout from './components/layout/DashboardLayout';
+import DashboardLayout from './components/layouts/DashboardLayout';
 import './index.css';
 
 const router = createBrowserRouter([

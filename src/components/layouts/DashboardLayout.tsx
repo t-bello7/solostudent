@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
-import { Sidebar } from '../element';
+import { Sidebar } from '../elements';
 import { RightIcon, LeftIcon } from '../../assets/icons';
 
 const { Content } = Layout;
@@ -19,7 +19,11 @@ const DashboardLayout: FC = () => {
             collapsed ? 'left-[75px]' : 'left-[190px]'
           } top-[22vh] bg-white`}
         >
-          {collapsed ? <RightIcon /> : <LeftIcon />}
+          {collapsed ? (
+            <RightIcon color="fill-primaryColor" />
+          ) : (
+            <LeftIcon color="fill-primaryColor" />
+          )}
         </button>
         <Outlet />
       </Content>

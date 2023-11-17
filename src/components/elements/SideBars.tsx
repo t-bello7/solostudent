@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
 import {
-  AdminIcon, FriendIcon, HomeIcon, ExitIcon,
+  ProfileIcon,
+  FriendIcon,
+  HomeIcon,
+  ExitIcon,
 } from '../../assets/icons';
 
 const { Sider } = Layout;
@@ -36,7 +39,7 @@ const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
         {' '}
       </Link>,
       '2',
-      <AdminIcon color="fill-blue-500" />,
+      <ProfileIcon color="fill-blue-500" />,
     ),
     getItem(
       <Link to="/students" className={`${collapsed ? 'text-white' : ''}`}>
