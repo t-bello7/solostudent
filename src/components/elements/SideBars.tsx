@@ -63,7 +63,9 @@ const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
       trigger={null}
       collapsible
       collapsed={collapsed}
-      className="border-secondaryColor100 border-r-2 bg-white
+      className="
+      border-secondaryColor100
+      basis-36 border-r-2 bg-white
       [&>.ant-layout-sider-children]:my-12
       [&>.ant-layout-sider-children]:flex
       [&>.ant-layout-sider-children]:flex-col

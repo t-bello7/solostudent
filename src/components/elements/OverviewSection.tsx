@@ -35,7 +35,7 @@ const OverviewData = [
 ];
 
 const OverviewSection = () => (
-  <section className="grid justify-center gap-3 md:auto-cols-max md:grid-flow-col">
+  <section className="grid justify-center gap-3 md:flex md:flex-wrap">
     {OverviewData.map((item) => (
       <OverviewCard
         key={item.id}
