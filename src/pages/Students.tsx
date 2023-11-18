@@ -1,8 +1,10 @@
 import React, { FC, useState } from 'react';
+import { PDFViewer } from '@react-pdf/renderer';
 import {
   Form, Input, InputNumber, Popconfirm, Table, Typography,
 } from 'antd';
 import { Heading } from '../components/atoms';
+import { MyDocument } from '../components/molecules';
 import {
   DeleteIcon,
   SaveIcon,
@@ -82,7 +84,10 @@ const Students: FC = () => {
 
   const edit = (record: Partial<Item> & { key: React.Key }) => {
     form.setFieldsValue({
-      name: '', age: '', address: '', ...record,
+      name: '',
+      age: '',
+      address: '',
+      ...record,
     });
     setEditingKey(record.key);
   };
@@ -257,6 +262,9 @@ const Students: FC = () => {
           }}
         />
       </Form>
+      <PDFViewer>
+        <MyDocument />
+      </PDFViewer>
     </div>
   );
 };
