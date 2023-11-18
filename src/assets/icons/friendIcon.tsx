@@ -1,4 +1,7 @@
-const FriendIcon = ({ color }: { color: string }) => (
+import { FC } from 'react';
+import { IconInt } from '../../utils';
+
+const FriendIcon: FC<IconInt> = ({ color }) => (
   <svg
     width="20"
     height="20"

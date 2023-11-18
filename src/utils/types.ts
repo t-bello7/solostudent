@@ -4,8 +4,9 @@ interface IconInt {
   color: string;
 }
 interface HeadingInt {
-  headingType: 'page' | 'section';
+  headingType?: 'page' | 'section';
   title: string;
+  className?: string;
 }
 
 interface OverviewCardInt {

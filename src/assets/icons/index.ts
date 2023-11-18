@@ -8,6 +8,8 @@ import AdminIcon from './adminIcon';
 import BlockedIcon from './blockedIcon';
 import SittingStudentIcon from './sittingStudentIcon';
 import StudentIcon from './studentIcon';
+import EditIcon from './editIcon';
+import ClockIcon from './clockIcon';
 
 export {
   ProfileIcon,
@@ -20,4 +22,6 @@ export {
   AdminIcon,
   BlockedIcon,
   StudentIcon,
+  EditIcon,
+  ClockIcon,
 };

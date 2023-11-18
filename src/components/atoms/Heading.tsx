@@ -1,20 +1,14 @@
 import { FC } from 'react';
 import { HeadingInt } from '../../utils';
 
-const Heading: FC<HeadingInt> = ({ headingType, title }) => {
+const Heading: FC<HeadingInt> = ({ className, headingType, title }) => {
   switch (headingType) {
     case 'page':
-      return <h1 className="font-solway">{title}</h1>;
+      return <h1 className={`font-solway ${className}`}>{title}</h1>;
     case 'section':
-      return <h2 className="font-solway">{title}</h2>;
+      return <h2 className={`font-solway ${className}`}>{title}</h2>;
     default:
-      return (
-        <h3>
-          {' '}
-          {title}
-          {' '}
-        </h3>
-      );
+      return <h3 className={`font-solway ${className}`}>{title}</h3>;
   }
 };
 

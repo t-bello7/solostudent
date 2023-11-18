@@ -11,13 +11,11 @@ const DashboardLayout: FC = () => {
   return (
     <Layout className="min-h-[100vh] font-cantarell">
       <Sidebar collapsed={collapsed} />
-      <Content className="p-12 font-cantarell">
+      <Content className="relative p-12 font-cantarell">
         <button
           type="button"
           onClick={() => setCollapsed(!collapsed)}
-          className={`absolute z-10 h-5 w-5 rounded-full border border-primaryColor transition-all ${
-            collapsed ? 'left-[75px]' : 'left-[12rem] md:left-[190px]'
-          } top-[22vh] bg-white`}
+          className="absolute left-[-10px] top-[22vh] z-10 h-5 w-5 rounded-full border  border-primaryColor bg-white transition-all"
         >
           {collapsed ? (
             <RightIcon color="fill-primaryColor" />
