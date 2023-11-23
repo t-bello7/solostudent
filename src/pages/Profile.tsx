@@ -56,5 +56,4 @@ const Profile: FC = () => (
     </div>
   </div>
 );
-
 export default Profile;
