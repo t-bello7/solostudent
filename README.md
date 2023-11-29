@@ -13,6 +13,22 @@ https://www.mongodb.com/docs/realm/web/sync/2
 https://github.com/realm/realm-js/tree/nh/wasm/emscripten_target/examples/example-react-task
 
 https://vitejs.dev/guide/dep-pre-bundling.html
-
+https://timmousk.com/project/psyhelp/
 Introdution to MongoDB
 - https://www.knowledgehut.com/blog/web-development/data-relationships-in-mongodb#a-one-to-many-relationship-(1:n)%C2%A0
+    // "postinstall": "cp ./node_modules/realm/dist/realm-js-wasm.wasm ./node_modules/.vite/deps"
+
+      "postinstall": "cp ./node_modules/realm/dist/realm-js-wasm.wasm ./node_modules/.vite/deps"
+
+
+  esbuild: {
+    supported: {
+      'top-level-await': true
+    }
+  },
+  build: {
+    target: 'esnext',
+    commonjsOptions: {
+      include: ['realm']
+    }
+  },
