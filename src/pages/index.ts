@@ -1,9 +1,9 @@
-import Login from './Login';
 import Home from './Home';
+import DashboardHome from './DashboardHome';
 import ErrorPage from './404';
 import Profile from './Profile';
 import Students from './Students';
 
 export {
-  Login, Home, ErrorPage, Profile, Students,
+  Home, DashboardHome, ErrorPage, Profile, Students,
 };

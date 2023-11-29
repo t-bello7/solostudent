@@ -1,40 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { AppProvider } from '@realm/react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
-  ErrorPage, Home, Login, Profile, Students,
+  ErrorPage, DashboardHome, Home, Profile, Students,
 } from './pages';
 import DashboardLayout from './components/layouts/DashboardLayout';
 import './index.css';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/dashboard',
     errorElement: <ErrorPage />,
     element: <DashboardLayout />,
     children: [
       {
-        path: '/',
-        element: <Home />,
+        path: '',
+        element: <DashboardHome />,
       },
       {
-        path: '/profile',
+        path: 'profile',
         element: <Profile />,
       },
       {
-        path: '/students',
+        path: 'students',
         element: <Students />,
       },
     ],
   },
   {
-    path: '/login',
-    element: <Login />,
+    path: '/',
+    errorElement: <ErrorPage />,
+    element: <Home />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AppProvider id={import.meta.env.VITE_APP_ID}>
+      <RouterProvider router={router} />
+    </AppProvider>
   </React.StrictMode>,
 );

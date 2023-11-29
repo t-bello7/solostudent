@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '@realm/react';
 import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
 import {
@@ -25,6 +26,7 @@ const getItem = (
   label,
 }) as MenuItem;
 const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
+  const { logOut } = useAuth();
   const items: MenuItem[] = [
     getItem(
       <Link to="/" className={`${collapsed ? 'text-white' : ''}`}>
@@ -34,7 +36,10 @@ const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
       <HomeIcon color="fill-blue-500" />,
     ),
     getItem(
-      <Link to="/profile" className={`${collapsed ? 'text-white' : ''}`}>
+      <Link
+        to="/dashboard/profile"
+        className={`${collapsed ? 'text-white' : ''}`}
+      >
         Profile
         {' '}
       </Link>,
@@ -42,7 +47,10 @@ const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
       <ProfileIcon color="fill-blue-500" />,
     ),
     getItem(
-      <Link to="/students" className={`${collapsed ? 'text-white' : ''}`}>
+      <Link
+        to="/dashboard/students"
+        className={`${collapsed ? 'text-white' : ''}`}
+      >
         Students
         {' '}
       </Link>,
@@ -50,7 +58,11 @@ const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
       <FriendIcon color="fill-blue-500" />,
     ),
     getItem(
-      <button type="button" className={`${collapsed ? 'text-white' : ''}`}>
+      <button
+        type="button"
+        className={`${collapsed ? 'text-white' : ''}`}
+        onClick={logOut}
+      >
         Logout
       </button>,
       '9',

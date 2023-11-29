@@ -9,17 +9,21 @@
     "test": "vitest run",
     "fix:lint": "eslint . --fix",
     "fix:prettify": "prettier --write --ignore-path .gitignore .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "cp ./node_modules/realm/dist/realm-js-wasm.wasm ./node_modules/.vite/deps"
   },
   "dependencies": {
     "@react-pdf/renderer": "^3.1.14",
+    "@realm/react": "^0.6.2",
     "antd": "^5.10.0",
     "apexcharts": "^3.44.0",
     "framer-motion": "^10.16.5",
+    "mongodb": "^6.3.0",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",
+    "realm": "12.0.0-browser.2",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
@@ -48,15 +52,17 @@
     "eslint-plugin-react-hooks": "4.x",
     "eslint-plugin-react-refresh": "^0.4.3",
     "husky": "^8.0.3",
+    "install-peers": "^1.0.4",
     "jsdom": "^22.1.0",
     "lint-staged": "^15.1.0",
     "postcss": "^8.4.31",
     "prettier": "3.x",
     "prettier-plugin-tailwindcss": "0.x",
-    "realm-web": "^2.0.0",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
+    "vite-plugin-top-level-await": "^1.3.1",
+    "vite-plugin-wasm": "^3.2.2",
     "vitest": "^0.34.6"
   }
 }

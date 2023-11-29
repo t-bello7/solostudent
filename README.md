@@ -8,3 +8,11 @@ https://blog.shahednasser.com/how-to-integrate-mongo-realm-with-react-part-1/
 https://www.mongodb.com/docs/realm/web/
 https://dev.to/hackmamba/going-serverless-with-mongodb-realm-reactjs-version-jh6
 https://www.mongodb.com/docs/mongoid/current/installation/
+https://stackoverflow.com/questions/66010391/using-realm-web-with-react
+https://www.mongodb.com/docs/realm/web/sync/2
+https://github.com/realm/realm-js/tree/nh/wasm/emscripten_target/examples/example-react-task
+
+https://vitejs.dev/guide/dep-pre-bundling.html
+
+Introdution to MongoDB
+- https://www.knowledgehut.com/blog/web-development/data-relationships-in-mongodb#a-one-to-many-relationship-(1:n)%C2%A0

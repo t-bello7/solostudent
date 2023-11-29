@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest';
 import { screen } from '@testing-library/react';
-import Home from '../pages/Home';
-import Login from '../pages/Login';
+import Home from '../pages/DashboardHome';
+import Login from '../pages/Home';
 import { renderWithRouter } from '../utils';
 
 describe('Test for routes', () => {
