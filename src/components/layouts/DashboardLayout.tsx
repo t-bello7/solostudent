@@ -13,14 +13,14 @@ const DashboardLayout: FC = () => {
     <UserProvider fallback={<Navigate to="/" />}>
       <RealmProvider
         schema={[Student]}
-        // sync={{
-        //   flexible: true,
-        //   initialSubscriptions: {
-        //     update: ((mutableSubs, realm) => {
-        //       mutableSubs.add(realm.objects(Student), { name: 'allStudents'})
-        //     })
-        //   }
-        // }}
+        sync={{
+          flexible: true,
+          initialSubscriptions: {
+            update: (mutableSubs, realm) => {
+              mutableSubs.add(realm.objects(Student), { name: 'allStudents' });
+            },
+          },
+        }}
       >
         <Layout className="min-h-[100vh] font-cantarell">
           <Sidebar collapsed={collapsed} />
