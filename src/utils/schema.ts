@@ -5,11 +5,15 @@ export class Student extends Object {
 
   firstName!: string;
 
+  department!: string;
+
   lastName!: string;
 
   profilePic!: string;
 
   bioPic!: string;
+
+  blacklisted!: boolean;
 
   createdAt!: Date;
 
@@ -19,13 +23,21 @@ export class Student extends Object {
     name: 'Student',
     primaryKey: '_id',
     properties: {
-      _id: 'objectId',
+      _id: { type: 'objectId', default: () => new BSON.ObjectId() },
       firstName: 'string',
       lastName: 'string',
-      profilePic: 'string',
-      bioPic: 'string',
+      profilePic: {
+        type: 'string',
+        default: 'https://xsgames.co/randomusers/avatar.php?g=pixel&key=2',
+      },
+      bioPic: {
+        type: 'string',
+        default: 'https://xsgames.co/randomusers/avatar.php?g=pixel&key=2',
+      },
+      blacklisted: { type: 'bool', default: false },
       createdAt: { type: 'date', default: () => new Date() },
       userId: 'string',
+      department: 'string',
     },
   };
 }

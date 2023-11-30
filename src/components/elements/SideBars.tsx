@@ -37,17 +37,6 @@ const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
     ),
     getItem(
       <Link
-        to="/dashboard/profile"
-        className={`${collapsed ? 'text-white' : ''}`}
-      >
-        Profile
-        {' '}
-      </Link>,
-      '2',
-      <ProfileIcon color="fill-blue-500" />,
-    ),
-    getItem(
-      <Link
         to="/dashboard/students"
         className={`${collapsed ? 'text-white' : ''}`}
       >
@@ -57,6 +46,18 @@ const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
       '5',
       <FriendIcon color="fill-blue-500" />,
     ),
+    getItem(
+      <Link
+        to="/dashboard/profile"
+        className={`${collapsed ? 'text-white' : ''}`}
+      >
+        Profile
+        {' '}
+      </Link>,
+      '2',
+      <ProfileIcon color="fill-blue-500" />,
+    ),
+
     getItem(
       <button
         type="button"

@@ -7,18 +7,16 @@ export const useStudentManager = () => {
   const user = useUser();
   const [requeryFlag, setRequeryFlag] = useState(false);
   const students = useQuery(Student, (collection) => collection, [requeryFlag]);
-
   useEffect(() => {
     setRequeryFlag(true);
   }, []);
 
   const addStudent = useCallback(
-    (firstName: string, lastName: string, profilePic: string) => {
+    (firstName: string, lastName: string) => {
       realm.write(() => {
         realm.create(Student, {
           firstName,
           lastName,
-          profilePic,
           userId: user.id,
         });
       });

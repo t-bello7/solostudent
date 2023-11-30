@@ -14,7 +14,24 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
-    'no-restricted-syntax': [
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
+    'jsx-a11y/label-has-for': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
+    'no-restricted-syntax':
+     [
       'error',
       'FunctionExpression',
       'FunctionDeclaration',
@@ -26,6 +43,7 @@ module.exports = {
     ],
     'no-shadow': 'off',
     'comma-dangle': 'off',
+    'max-len': ['error', {'code': 108}],
     quotes: 'off',
     'react/function-component-definition': [
       2,

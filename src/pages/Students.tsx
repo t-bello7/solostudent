@@ -1,7 +1,17 @@
-import React, { FC, useState } from 'react';
+/* eslint no-underscore-dangle: [1, { "allow": ["_id"] }] */
+/* eslint-disable jsx-a11y/label-has-associated-control, jsx-a11y/control-has-associated-label */
+import React, {
+  FC, useState, FormEvent, ChangeEvent,
+} from 'react';
 import { PDFViewer } from '@react-pdf/renderer';
 import {
-  Form, Input, InputNumber, Popconfirm, Table, Typography,
+  Modal,
+  Form,
+  Input,
+  InputNumber,
+  Popconfirm,
+  Table,
+  Typography,
 } from 'antd';
 import { Heading } from '../components/atoms';
 import { MyDocument } from '../components/molecules';
@@ -14,22 +24,14 @@ import {
   SearchIcon,
   AddIcon,
 } from '../assets/icons';
+import { useStudentManager } from '../hooks/useStudentManager';
 
 interface Item {
   key: string;
-  name: string;
-  age: number;
-  address: string;
-}
-
-const originData: Item[] = [];
-for (let i = 0; i < 100; i += 1) {
-  originData.push({
-    key: i.toString(),
-    name: `Edward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
+  firstName: string;
+  lastName: string;
+  createdAt: Date;
+  blacklisted: boolean;
 }
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
@@ -52,12 +54,12 @@ const EditableCell: React.FC<EditableCellProps> = ({
   className,
 }) => {
   const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
-  // console.log(restProps)
   return (
     <td className={className}>
       {editing ? (
         <Form.Item
           name={dataIndex}
+          label={dataIndex}
           style={{ margin: 0 }}
           rules={[
             {
@@ -76,12 +78,36 @@ const EditableCell: React.FC<EditableCellProps> = ({
 };
 
 const Students: FC = () => {
+  const { students, addStudent, deleteStudent } = useStudentManager();
+  const [studentData, setStudentData] = useState({
+    firstName: '',
+    lastName: '',
+  });
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
+  const [data, setData] = useState(
+    students.map((item) => ({
+      key: item._id.toString(),
+      firstName: item.firstName,
+      lastName: item.lastName,
+      blacklisted: false,
+      createdAt: item.createdAt,
+    })),
+  );
   const [editingKey, setEditingKey] = useState('');
-
+  const [openForm, setOpenForm] = useState(false);
+  const [openPdf, setOpenPdf] = useState(false);
+  const showModal = (
+    state: boolean,
+    func: { (value: React.SetStateAction<boolean>): void },
+  ) => {
+    func(!state);
+  };
+  const handleCancel = (func: {
+    (value: React.SetStateAction<boolean>): void;
+  }) => {
+    func(false);
+  };
   const isEditing = (record: Item) => record.key === editingKey;
-
   const edit = (record: Partial<Item> & { key: React.Key }) => {
     form.setFieldsValue({
       name: '',
@@ -91,11 +117,9 @@ const Students: FC = () => {
     });
     setEditingKey(record.key);
   };
-
   const cancel = () => {
     setEditingKey('');
   };
-
   const save = async (key: React.Key) => {
     try {
       const row = (await form.validateFields()) as Item;
@@ -121,22 +145,33 @@ const Students: FC = () => {
   };
 
   const handleDelete = (key: React.Key) => {
+    const deleteData = students
+      .map((item) => item)
+      .filter((item) => item._id.toString() === key);
     const newData = data.filter((item) => item.key !== key);
     setData(newData);
+    deleteStudent(deleteData[0]);
   };
 
   const columns = [
     {
       title: 'First Name',
-      dataIndex: 'name',
+      dataIndex: 'firstName',
       width: '15%',
       editable: true,
     },
     {
       title: 'Last Name',
-      dataIndex: 'name',
+      dataIndex: 'lastName',
       width: '15%',
       editable: true,
+    },
+    {
+      title: 'status',
+      dataIndex: 'blacklisted',
+      width: '10%',
+      editable: true,
+      render: (status: boolean) => (status ? <span> Blacklisted </span> : <span> Not blacklisted</span>),
     },
     {
       title: 'Department',
@@ -145,23 +180,44 @@ const Students: FC = () => {
       editable: true,
     },
     {
-      title: 'status',
-      dataIndex: 'address',
-      width: '10%',
-      editable: true,
-    },
-    {
       title: 'Date Created',
-      dataIndex: 'address',
+      dataIndex: 'createdAt',
       width: '10%',
       editable: true,
+      render: (date: Date) => {
+        const dayOfWeek: {
+          0: string;
+          1: string;
+          2: string;
+          3: string;
+          4: string;
+          5: string;
+          6: string;
+        } = {
+          0: 'Sunday',
+          1: 'Monday',
+          2: 'Tuesday',
+          3: 'Wednesday',
+          4: 'Thursday',
+          5: 'Friday',
+          6: 'Saturday',
+        };
+        return (
+          <span>
+            {`
+      ${dayOfWeek[date.getUTCDay() as keyof typeof dayOfWeek]}, 
+      ${date.getUTCMonth() + 1} 
+      ${date.getUTCFullYear()}`}
+          </span>
+        );
+      },
     },
-    {
-      title: 'Last Modified',
-      dataIndex: 'address',
-      width: '10%',
-      editable: true,
-    },
+    // {
+    //   title: 'Last Modified',
+    //   dataIndex: 'addr',
+    //   width: '10%',
+    //   editable: true,
+    // },
     {
       title: 'actions',
       dataIndex: 'actions',
@@ -195,6 +251,7 @@ const Students: FC = () => {
             <Typography.Link
               disabled={editingKey !== ''}
               onClick={() => edit(record)}
+              aria-label="Edit"
             >
               <EditIcon color="stroke-black" />
             </Typography.Link>
@@ -220,32 +277,89 @@ const Students: FC = () => {
     };
   });
 
+  const handleAddStudent = (event: FormEvent) => {
+    event.preventDefault();
+    addStudent(studentData.firstName, studentData.lastName);
+  };
+
+  const handleAddStudentForm = (event: ChangeEvent<HTMLInputElement>) => {
+    setStudentData({
+      ...studentData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   return (
     <div>
       <Heading headingType="page" title="student Management" />
       <div className="flex justify-between">
-        <p>
+        <div className="flex items-center">
           {' '}
           <SearchIcon color="stroke-primaryColor" />
-          {' '}
-          Search
-          {' '}
-        </p>
+          <input placeholder="Search students" />
+        </div>
         <div className="flex gap-5">
-          <p>
+          <button
+            type="button"
+            className="flex items-center"
+            onClick={() => showModal(openForm, setOpenForm)}
+          >
             {' '}
             <AddIcon color="fill-primaryColor" />
             Add Student
             {' '}
-          </p>
-          <p>
+          </button>
+          <button
+            type="button"
+            className="flex items-center"
+            onClick={() => showModal(openPdf, setOpenPdf)}
+          >
             {' '}
             <DownloadIcon color="fill-primary" />
             {' '}
-            Download student list
-          </p>
+            View student Report
+          </button>
         </div>
       </div>
+      <Modal open={openPdf} onCancel={() => handleCancel(setOpenPdf)}>
+        <PDFViewer>
+          <MyDocument />
+        </PDFViewer>
+      </Modal>
+      <Modal open={openForm} onCancel={() => handleCancel(setOpenForm)}>
+        <div>
+          <h2> Add student </h2>
+          <Form>
+            <Form.Item label="First Name" htmlFor="firstName">
+              First Name
+              <input
+                id="firstName"
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={studentData.firstName}
+                onChange={handleAddStudentForm}
+              />
+            </Form.Item>
+            <label htmlFor="lastName">
+              Last Name
+              <Input
+                id="lastName"
+                name="lastName"
+                type="text"
+                placeholder="Last Name"
+                value={studentData.lastName}
+                onChange={handleAddStudentForm}
+              />
+            </label>
+            <button type="submit" onClick={handleAddStudent}>
+              {' '}
+              Submit
+              {' '}
+            </button>
+          </Form>
+        </div>
+      </Modal>
       <Form form={form} component={false}>
         <Table
           components={{
@@ -262,9 +376,6 @@ const Students: FC = () => {
           }}
         />
       </Form>
-      <PDFViewer>
-        <MyDocument />
-      </PDFViewer>
     </div>
   );
 };
