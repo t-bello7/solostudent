@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '@realm/react';
+import { useAuth, useApp } from '@realm/react';
 import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
 import {
@@ -27,6 +27,8 @@ const getItem = (
 }) as MenuItem;
 const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
   const { logOut } = useAuth();
+  const app = useApp();
+  console.log(app.currentUser?.profile);
   const items: MenuItem[] = [
     getItem(
       <Link to="/" className={`${collapsed ? 'text-white' : ''}`}>

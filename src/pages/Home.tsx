@@ -1,7 +1,6 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthOperationName, useApp, useEmailPasswordAuth } from '@realm/react';
-
 import { Tabs, Input } from 'antd';
 import type { TabsProps } from 'antd';
 import { motion } from 'framer-motion';
@@ -10,6 +9,9 @@ const Home = () => {
   const { register, logIn, result } = useEmailPasswordAuth();
   const atlasApp = useApp();
   const [navOpen, setNavOpen] = useState(false);
+  const [loginErr, setLoginErr] = useState('');
+  const [registerErr, setRegisterErr] = useState('');
+
   const [registerData, setRegisterData] = useState<{
     // first_name: string,
     // last_name: string,
@@ -37,7 +39,6 @@ const Home = () => {
     });
   };
   const handleRegister = () => {
-    console.log(registerData);
     register(registerData);
   };
   const handleRegisterForm = (event: ChangeEvent<HTMLInputElement>) => {
@@ -45,9 +46,15 @@ const Home = () => {
       ...registerData,
       [event.target.name]: event.target.value,
     });
+    if (result.error) {
+      setRegisterErr(result.error.message);
+    }
   };
   const handleLogin = () => {
     logIn(loginData);
+    if (result.error) {
+      setLoginErr(result.error.message);
+    }
   };
   const items: TabsProps['items'] = [
     {
@@ -79,6 +86,7 @@ const Home = () => {
           {/* <span className="text-xs font-normal text-primaryColor">
             Forgot Password?
           </span> */}
+          {loginErr && <p className="bg-red">{loginErr}</p>}
           <br />
           <button type="submit" onClick={handleLogin} className="mt-14 w-full">
             Login
@@ -157,6 +165,7 @@ const Home = () => {
             />
           </div> */}
           <br />
+          {registerErr && <p className="bg-red">{registerErr}</p>}
           <button
             type="submit"
             onClick={handleRegister}
@@ -171,9 +180,9 @@ const Home = () => {
 
   useEffect(() => {
     if (result.operation === AuthOperationName.Register && result.success) {
-      logIn(loginData);
+      logIn(registerData);
     }
-  }, [result.operation, result.success, logIn, loginData]);
+  }, [result.operation, result.success, logIn, registerData]);
 
   if (atlasApp.currentUser) {
     return <Navigate to="/dashboard" />;

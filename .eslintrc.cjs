@@ -43,7 +43,7 @@ module.exports = {
     ],
     'no-shadow': 'off',
     'comma-dangle': 'off',
-    'max-len': ['error', {'code': 108}],
+    'max-len': ['error', {'code': 135}],
     quotes: 'off',
     'react/function-component-definition': [
       2,
