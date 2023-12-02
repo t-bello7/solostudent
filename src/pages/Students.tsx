@@ -290,12 +290,12 @@ const Students: FC = () => {
   };
 
   return (
-    <div>
+    <div className="space-y-6">
       <Heading headingType="page" title="student Management" />
       <div className="flex justify-between">
-        <div className="flex items-center">
+        <div className="flex items-center gap-2 bg-white">
           {' '}
-          <SearchIcon color="stroke-primaryColor" />
+          <SearchIcon color="stroke-primaryColor" className="w-4" />
           <input placeholder="Search students" />
         </div>
         <div className="flex gap-5">

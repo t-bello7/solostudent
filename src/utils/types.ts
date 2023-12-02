@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 interface IconInt {
   color: string;
+  className?: string;
 }
 interface HeadingInt {
   headingType?: 'page' | 'section';

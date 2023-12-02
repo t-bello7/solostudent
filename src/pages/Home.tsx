@@ -69,6 +69,7 @@ const Home = () => {
               className="w-full"
               size="large"
               name="email"
+              type="text"
               placeholder={loginData.email}
               onChange={handleLoginForm}
             />
@@ -79,6 +80,7 @@ const Home = () => {
               className="w-full"
               size="large"
               name="password"
+              type="password"
               placeholder={loginData.password}
               onChange={handleLoginForm}
             />
@@ -135,6 +137,7 @@ const Home = () => {
               size="large"
               name="email"
               id="email"
+              type="text"
               placeholder={registerData.email}
               onChange={handleRegisterForm}
             />
@@ -150,6 +153,7 @@ const Home = () => {
               size="large"
               id="password"
               name="password"
+              type="password"
               placeholder={registerData.password}
               onChange={handleRegisterForm}
             />
