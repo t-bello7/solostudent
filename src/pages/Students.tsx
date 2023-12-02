@@ -3,7 +3,6 @@
 import React, {
   FC, useState, FormEvent, ChangeEvent,
 } from 'react';
-import { PDFViewer } from '@react-pdf/renderer';
 import {
   Modal,
   Form,
@@ -20,9 +19,9 @@ import {
   SaveIcon,
   CancelIcon,
   EditIcon,
-  DownloadIcon,
   SearchIcon,
   AddIcon,
+  ViewReportIcon,
 } from '../assets/icons';
 import { useStudentManager } from '../hooks/useStudentManager';
 
@@ -292,8 +291,8 @@ const Students: FC = () => {
   return (
     <div className="space-y-6">
       <Heading headingType="page" title="student Management" />
-      <div className="flex justify-between">
-        <div className="flex items-center gap-2 bg-white">
+      <div className="flex items-center justify-between">
+        <div className="m-0 flex h-6 items-center gap-2 rounded bg-white">
           {' '}
           <SearchIcon color="stroke-primaryColor" className="w-4" />
           <input placeholder="Search students" />
@@ -307,24 +306,43 @@ const Students: FC = () => {
           />
           <Button
             variant="iconButton"
-            Icon={<DownloadIcon color="fill-primary" />}
+            Icon={<ViewReportIcon color="fill-primary" />}
             text="View Report"
             onClick={() => showModal(openPdf, setOpenPdf)}
           />
         </div>
       </div>
-      <Modal open={openPdf} onCancel={() => handleCancel(setOpenPdf)}>
-        <PDFViewer>
-          <MyDocument />
-        </PDFViewer>
+      <Modal
+        footer={null}
+        className="w-full"
+        open={openPdf}
+        onCancel={() => handleCancel(setOpenPdf)}
+      >
+        <MyDocument data={data} />
       </Modal>
-      <Modal open={openForm} onCancel={() => handleCancel(setOpenForm)}>
+      <Modal
+        open={openForm}
+        onCancel={() => handleCancel(setOpenForm)}
+        footer={[
+          <Button
+            text="Submit"
+            key="submit"
+            onClick={() => handleAddStudent}
+          />,
+          <Button
+            text="Cancel"
+            key="cancel"
+            className="bg-red"
+            onClick={() => handleCancel(setOpenForm)}
+          />,
+        ]}
+      >
         <div>
           <h2> Add student </h2>
           <Form>
-            <Form.Item label="First Name" htmlFor="firstName">
+            <label htmlFor="lastName">
               First Name
-              <input
+              <Input
                 id="firstName"
                 type="text"
                 name="firstName"
@@ -332,7 +350,7 @@ const Students: FC = () => {
                 value={studentData.firstName}
                 onChange={handleAddStudentForm}
               />
-            </Form.Item>
+            </label>
             <label htmlFor="lastName">
               Last Name
               <Input
@@ -344,11 +362,6 @@ const Students: FC = () => {
                 onChange={handleAddStudentForm}
               />
             </label>
-            <button type="submit" onClick={handleAddStudent}>
-              {' '}
-              Submit
-              {' '}
-            </button>
           </Form>
         </div>
       </Modal>

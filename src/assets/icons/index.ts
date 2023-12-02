@@ -16,6 +16,7 @@ import SaveIcon from './saveIcon';
 import SearchIcon from './searchIcon';
 import DownloadIcon from './downloadIcon';
 import AddIcon from './addIcon';
+import ViewReportIcon from './viewReportIcon';
 
 export {
   ProfileIcon,
@@ -36,4 +37,5 @@ export {
   SearchIcon,
   DownloadIcon,
   AddIcon,
+  ViewReportIcon,
 };

@@ -34,7 +34,7 @@ const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
   const app = useApp();
   const items: MenuItem[] = [
     getItem(
-      <Link to="/" className={`${collapsed ? 'text-white' : ''}`}>
+      <Link to="/dashboard" className={`${collapsed ? 'text-white' : ''}`}>
         Overview
       </Link>,
       '1',

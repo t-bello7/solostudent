@@ -186,7 +186,6 @@ const Home = () => {
     }
     if (result.operation === AuthOperationName.Register && result.success) {
       logIn(registerData);
-      localStorage.setItem('userData', JSON.stringify(registerData));
     }
   }, [result.operation, result.success, logIn, registerData]);
 
