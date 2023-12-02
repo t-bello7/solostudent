@@ -9,6 +9,7 @@ export default {
         primaryColor: '#B9E503',
         secondaryColor: '#00A902',
         blueVariantColor: '#017e9c',
+        dangerColor: '#ce3130',
       },
       fontFamily: {
         solway: ['Solway', ...defaultTheme.fontFamily.sans],

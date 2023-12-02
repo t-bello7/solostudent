@@ -1,8 +1,6 @@
 /* eslint no-underscore-dangle: [1, { "allow": ["_id"] }] */
 /* eslint-disable jsx-a11y/label-has-associated-control, jsx-a11y/control-has-associated-label */
-import React, {
-  FC, useState, FormEvent, ChangeEvent,
-} from 'react';
+import React, { FC, useState, ChangeEvent } from 'react';
 import {
   Modal,
   Form,
@@ -11,6 +9,7 @@ import {
   Popconfirm,
   Table,
   Typography,
+  Avatar,
 } from 'antd';
 import { Heading, Button } from '../components/atoms';
 import { MyDocument } from '../components/molecules';
@@ -31,6 +30,8 @@ interface Item {
   lastName: string;
   createdAt: Date;
   blacklisted: boolean;
+  department: string;
+  profilePic: string;
 }
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
@@ -81,6 +82,7 @@ const Students: FC = () => {
   const [studentData, setStudentData] = useState({
     firstName: '',
     lastName: '',
+    department: '',
   });
   const [form] = Form.useForm();
   const [data, setData] = useState(
@@ -88,6 +90,8 @@ const Students: FC = () => {
       key: item._id.toString(),
       firstName: item.firstName,
       lastName: item.lastName,
+      department: item.department,
+      profilePic: item.profilePic,
       blacklisted: false,
       createdAt: item.createdAt,
     })),
@@ -154,6 +158,13 @@ const Students: FC = () => {
 
   const columns = [
     {
+      title: '',
+      dataIndex: 'profilePic',
+      width: '5%',
+      editable: false,
+      render: (imageUrl: string) => <Avatar src={imageUrl} size="small" />,
+    },
+    {
       title: 'First Name',
       dataIndex: 'firstName',
       width: '15%',
@@ -178,6 +189,7 @@ const Students: FC = () => {
       width: '20%',
       editable: true,
     },
+
     {
       title: 'Date Created',
       dataIndex: 'createdAt',
@@ -276,12 +288,17 @@ const Students: FC = () => {
     };
   });
 
-  const handleAddStudent = (event: FormEvent) => {
-    event.preventDefault();
-    addStudent(studentData.firstName, studentData.lastName);
+  const handleAddStudent = () => {
+    addStudent(
+      studentData.firstName,
+      studentData.lastName,
+      studentData.department,
+    );
   };
 
-  const handleAddStudentForm = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleAddStudentForm = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     setStudentData({
       ...studentData,
       [event.target.name]: event.target.value,
@@ -322,24 +339,26 @@ const Students: FC = () => {
       </Modal>
       <Modal
         open={openForm}
+        className="w-[90%]"
         onCancel={() => handleCancel(setOpenForm)}
         footer={[
           <Button
             text="Submit"
+            className="m-4 px-6 py-2"
             key="submit"
-            onClick={() => handleAddStudent}
+            onClick={() => handleAddStudent()}
           />,
           <Button
             text="Cancel"
             key="cancel"
-            className="bg-red"
+            className="bg-dangerColor px-6 py-2"
             onClick={() => handleCancel(setOpenForm)}
           />,
         ]}
       >
-        <div>
+        <div className="space-y-6">
           <h2> Add student </h2>
-          <Form>
+          <Form className="flex flex-row items-center gap-4 md:flex">
             <label htmlFor="lastName">
               First Name
               <Input
@@ -361,6 +380,18 @@ const Students: FC = () => {
                 value={studentData.lastName}
                 onChange={handleAddStudentForm}
               />
+            </label>
+            <label htmlFor="department" className="flex flex-col">
+              Department
+              <select
+                name="department"
+                onChange={(event) => handleAddStudentForm(event)}
+              >
+                <option value="">--Please choose an option--</option>
+                <option value="engineering">Engineering</option>
+                <option value="creativeArt">Creative Arts</option>
+                <option value="medicine">Medicine</option>
+              </select>
             </label>
           </Form>
         </div>

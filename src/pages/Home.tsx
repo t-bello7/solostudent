@@ -180,10 +180,10 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    const userData = localStorage.getItem('userData') || '';
-    if (userData) {
-      logIn(JSON.parse(userData));
-    }
+    // const userData = localStorage.getItem('userData') || '';
+    // if (userData) {
+    //   logIn(JSON.parse(userData));
+    // }
     if (result.operation === AuthOperationName.Register && result.success) {
       logIn(registerData);
     }

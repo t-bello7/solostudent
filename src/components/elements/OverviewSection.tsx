@@ -5,7 +5,7 @@ import {
   SittingStudentIcon,
   StudentIcon,
   BlockedIcon,
-  AdminIcon,
+  // AdminIcon,
 } from '../../assets/icons';
 
 const OverviewSection = () => {
@@ -26,12 +26,12 @@ const OverviewSection = () => {
         .map((item) => item)
         .filter((item) => item.blacklisted === true).length,
     },
-    {
-      id: uuidv4(),
-      name: 'Total Admins',
-      icon: <AdminIcon color="fill-primaryColor" />,
-      overviewData: 423,
-    },
+    // {
+    //   id: uuidv4(),
+    //   name: 'Total Admins',
+    //   icon: <AdminIcon color="fill-primaryColor" />,
+    //   overviewData: 423,
+    // },
     {
       id: uuidv4(),
       name: 'Registerd Students',
