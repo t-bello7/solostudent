@@ -4,6 +4,7 @@ import { AuthOperationName, useApp, useEmailPasswordAuth } from '@realm/react';
 import { Tabs, Input } from 'antd';
 import type { TabsProps } from 'antd';
 import { motion } from 'framer-motion';
+import { Button } from '../components/atoms';
 
 const Home = () => {
   const { register, logIn, result } = useEmailPasswordAuth();
@@ -90,9 +91,7 @@ const Home = () => {
           </span> */}
           {loginErr && <p className="bg-red">{loginErr}</p>}
           <br />
-          <button type="submit" onClick={handleLogin} className="mt-14 w-full">
-            Login
-          </button>
+          <Button onClick={handleLogin} text="Login" className="mt-14 w-full" />
         </div>
       ),
     },
@@ -170,25 +169,31 @@ const Home = () => {
           </div> */}
           <br />
           {registerErr && <p className="bg-red">{registerErr}</p>}
-          <button
-            type="submit"
+          <Button
             onClick={handleRegister}
             className="mt-14 w-full"
-          >
-            Sign Up
-          </button>
+            text="Sign Up"
+          />
         </div>
       ),
     },
   ];
 
   useEffect(() => {
+    const userData = localStorage.getItem('userData') || '';
+    if (userData) {
+      logIn(JSON.parse(userData));
+    }
     if (result.operation === AuthOperationName.Register && result.success) {
       logIn(registerData);
+      localStorage.setItem('userData', JSON.stringify(registerData));
     }
   }, [result.operation, result.success, logIn, registerData]);
 
   if (atlasApp.currentUser) {
+    if (result.success) {
+      localStorage.setItem('userData', JSON.stringify(loginData));
+    }
     return <Navigate to="/dashboard" />;
   }
   return (

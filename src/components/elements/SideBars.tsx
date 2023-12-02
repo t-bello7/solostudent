@@ -27,8 +27,11 @@ const getItem = (
 }) as MenuItem;
 const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
   const { logOut } = useAuth();
+  const handleLogOut = () => {
+    localStorage.removeItem('userData');
+    logOut();
+  };
   const app = useApp();
-  console.log(app.currentUser?.profile);
   const items: MenuItem[] = [
     getItem(
       <Link to="/" className={`${collapsed ? 'text-white' : ''}`}>
@@ -64,7 +67,7 @@ const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
       <button
         type="button"
         className={`${collapsed ? 'text-white' : ''}`}
-        onClick={logOut}
+        onClick={handleLogOut}
       >
         Logout
       </button>,
@@ -88,6 +91,10 @@ const Sidebar: FC<{ collapsed: boolean }> = ({ collapsed }) => {
       "
     >
       <Link to="/">SoloStudent</Link>
+      <span>
+        {app.currentUser?.profile.email}
+        {' '}
+      </span>
       <Menu
         defaultSelectedKeys={['1']}
         mode="inline"

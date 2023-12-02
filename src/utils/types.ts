@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 interface IconInt {
   color: string;
@@ -21,6 +21,21 @@ interface OverviewChartInt {
   title: string;
 }
 
+interface ButtonInt {
+  variant?: 'icon' | 'iconButton';
+  text?: string;
+  isLoading?: boolean;
+  Icon?: ReactNode;
+  disabled?: boolean;
+  className?: string;
+  styleType?: 'primary' | 'secondary' | 'disabled';
+  onClick?: () => void;
+}
+
 export type {
-  OverviewCardInt, IconInt, OverviewChartInt, HeadingInt,
+  OverviewCardInt,
+  IconInt,
+  OverviewChartInt,
+  HeadingInt,
+  ButtonInt,
 };

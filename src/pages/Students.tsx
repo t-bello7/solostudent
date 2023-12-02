@@ -13,7 +13,7 @@ import {
   Table,
   Typography,
 } from 'antd';
-import { Heading } from '../components/atoms';
+import { Heading, Button } from '../components/atoms';
 import { MyDocument } from '../components/molecules';
 import {
   DeleteIcon,
@@ -299,26 +299,18 @@ const Students: FC = () => {
           <input placeholder="Search students" />
         </div>
         <div className="flex gap-5">
-          <button
-            type="button"
-            className="flex items-center"
+          <Button
+            variant="iconButton"
+            Icon={<AddIcon color="fill-primaryColor" />}
+            text="Add Student"
             onClick={() => showModal(openForm, setOpenForm)}
-          >
-            {' '}
-            <AddIcon color="fill-primaryColor" />
-            Add Student
-            {' '}
-          </button>
-          <button
-            type="button"
-            className="flex items-center"
+          />
+          <Button
+            variant="iconButton"
+            Icon={<DownloadIcon color="fill-primary" />}
+            text="View Report"
             onClick={() => showModal(openPdf, setOpenPdf)}
-          >
-            {' '}
-            <DownloadIcon color="fill-primary" />
-            {' '}
-            View student Report
-          </button>
+          />
         </div>
       </div>
       <Modal open={openPdf} onCancel={() => handleCancel(setOpenPdf)}>

@@ -8,6 +8,7 @@ import type {
   IconInt,
   OverviewChartInt,
   HeadingInt,
+  ButtonInt,
 } from './types';
 
 const renderWithRouter = (ui: ReactElement<string>, { route = '/' } = {}) => {
@@ -28,4 +29,5 @@ export {
   OverviewChartInt,
   HeadingInt,
   Student,
+  ButtonInt,
 };
