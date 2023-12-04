@@ -1,6 +1,8 @@
 /* eslint no-underscore-dangle: [1, { "allow": ["_id"] }] */
 /* eslint-disable jsx-a11y/label-has-associated-control, jsx-a11y/control-has-associated-label */
-import React, { FC, useState, ChangeEvent } from 'react';
+import React, {
+  FC, useState, ChangeEvent, useEffect,
+} from 'react';
 import {
   Modal,
   Form,
@@ -83,19 +85,20 @@ const Students: FC = () => {
     firstName: '',
     lastName: '',
     department: '',
+    profilePic: '',
   });
   const [form] = Form.useForm();
-  const [data, setData] = useState(
-    students.map((item) => ({
-      key: item._id.toString(),
-      firstName: item.firstName,
-      lastName: item.lastName,
-      department: item.department,
-      profilePic: item.profilePic,
-      blacklisted: false,
-      createdAt: item.createdAt,
-    })),
-  );
+  const [data, setData] = useState<
+  {
+    key: string;
+    firstName: string;
+    lastName: string;
+    department: string;
+    profilePic: string;
+    blacklisted: boolean;
+    createdAt: Date;
+  }[]
+  >([]);
   const [editingKey, setEditingKey] = useState('');
   const [openForm, setOpenForm] = useState(false);
   const [openPdf, setOpenPdf] = useState(false);
@@ -289,22 +292,56 @@ const Students: FC = () => {
   });
 
   const handleAddStudent = () => {
-    addStudent(
-      studentData.firstName,
-      studentData.lastName,
-      studentData.department,
-    );
+    addStudent(studentData);
+    setOpenForm(false);
   };
 
-  const handleAddStudentForm = (
+  const handleAddStudentForm = async (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    setStudentData({
-      ...studentData,
-      [event.target.name]: event.target.value,
-    });
+    if (event.target.type === 'file') {
+      const formData = new FormData();
+      const file = (event.currentTarget as HTMLInputElement).files;
+      if (file) {
+        formData.append('file', file[0]);
+        formData.append('upload_preset', import.meta.env.VITE_PRESET_KEY);
+        formData.append('cloud_name', import.meta.env.VITE_CLOUD_NAME);
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/${
+            import.meta.env.VITE_CLOUD_NAME
+          }/image/upload`,
+          {
+            method: 'post',
+            body: formData,
+          },
+        );
+        const imageUrl = await response.json();
+        setStudentData({
+          ...studentData,
+          [event.target.name]: imageUrl.url,
+        });
+      }
+    } else {
+      setStudentData({
+        ...studentData,
+        [event.target.name]: event.target.value,
+      });
+    }
   };
 
+  useEffect(() => {
+    setData(
+      students.map((item) => ({
+        key: item._id.toString(),
+        firstName: item.firstName,
+        lastName: item.lastName,
+        department: item.department,
+        profilePic: item.profilePic,
+        blacklisted: false,
+        createdAt: item.createdAt,
+      })),
+    );
+  }, [students]);
   return (
     <div className="space-y-6">
       <Heading headingType="page" title="student Management" />
@@ -358,7 +395,14 @@ const Students: FC = () => {
       >
         <div className="space-y-6">
           <h2> Add student </h2>
-          <Form className="flex flex-row items-center gap-4 md:flex">
+          <Form className="flex flex-col items-center gap-4">
+            <label htmlFor="profilePic">
+              <input
+                type="file"
+                name="profilePic"
+                onChange={handleAddStudentForm}
+              />
+            </label>
             <label htmlFor="lastName">
               First Name
               <Input

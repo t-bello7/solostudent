@@ -12,12 +12,15 @@ export const useStudentManager = () => {
   }, []);
 
   const addStudent = useCallback(
-    (firstName: string, lastName: string, department: string) => {
+    (studentData: {
+      firstName: string;
+      lastName: string;
+      department: string;
+      profilePic: string;
+    }) => {
       realm.write(() => {
         realm.create(Student, {
-          firstName,
-          lastName,
-          department,
+          ...studentData,
           userId: user.id,
         });
       });
