@@ -25,28 +25,9 @@ import {
   ViewReportIcon,
 } from '../assets/icons';
 import { useStudentManager } from '../hooks/useStudentManager';
+import { ItemInt, EditableCellPropsInt, StudentDataInt } from '../utils';
 
-interface Item {
-  key: string;
-  firstName: string;
-  lastName: string;
-  createdAt: Date;
-  blacklisted: boolean;
-  department: string;
-  profilePic: string;
-}
-
-interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
-  editing: boolean;
-  dataIndex: string;
-  title: string;
-  inputType: 'number' | 'text';
-  //   record?: Item;
-  //   index?: number;
-  children: React.ReactNode;
-}
-
-const EditableCell: React.FC<EditableCellProps> = ({
+const EditableCell: React.FC<EditableCellPropsInt> = ({
   editing,
   dataIndex,
   title,
@@ -88,17 +69,7 @@ const Students: FC = () => {
     profilePic: '',
   });
   const [form] = Form.useForm();
-  const [data, setData] = useState<
-  {
-    key: string;
-    firstName: string;
-    lastName: string;
-    department: string;
-    profilePic: string;
-    blacklisted: boolean;
-    createdAt: Date;
-  }[]
-  >([]);
+  const [data, setData] = useState<StudentDataInt[]>([]);
   const [editingKey, setEditingKey] = useState('');
   const [openForm, setOpenForm] = useState(false);
   const [openPdf, setOpenPdf] = useState(false);
@@ -113,8 +84,8 @@ const Students: FC = () => {
   }) => {
     func(false);
   };
-  const isEditing = (record: Item) => record.key === editingKey;
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
+  const isEditing = (record: ItemInt) => record.key === editingKey;
+  const edit = (record: Partial<ItemInt> & { key: React.Key }) => {
     form.setFieldsValue({
       name: '',
       age: '',
@@ -128,8 +99,7 @@ const Students: FC = () => {
   };
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as Item;
-
+      const row = (await form.validateFields()) as ItemInt;
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
       if (index > -1) {
@@ -236,7 +206,7 @@ const Students: FC = () => {
       title: 'actions',
       dataIndex: 'actions',
       width: '15%',
-      render: (_: [], record: Item) => {
+      render: (_: [], record: ItemInt) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -281,7 +251,7 @@ const Students: FC = () => {
     }
     return {
       ...col,
-      onCell: (record: Item) => ({
+      onCell: (record: ItemInt) => ({
         record,
         inputType: col.dataIndex === 'age' ? 'number' : 'text',
         dataIndex: col.dataIndex,

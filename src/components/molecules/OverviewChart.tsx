@@ -1,13 +1,13 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { Heading } from '../atoms';
 import { OverviewChartInt } from '../../utils';
 
-const OverviewChart: FC<OverviewChartInt> = ({ chartType, title }) => {
-  const [chartState] = useState({
+const OverviewChart: FC<OverviewChartInt> = ({ chartType, title, data }) => {
+  const [chartState, setChartState] = useState({
     options: {
       chart: {
-        id: 'apexchart-example',
+        id: title,
       },
       plotOptions: {
         bar: {
@@ -15,16 +15,30 @@ const OverviewChart: FC<OverviewChartInt> = ({ chartType, title }) => {
         },
       },
       xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+        categories: data.categories,
       },
     },
-    series: [
-      {
-        name: 'series-1',
-        data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
-      },
-    ],
+    series: data.series,
   });
+
+  useEffect(() => {
+    setChartState({
+      options: {
+        chart: {
+          id: title,
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          },
+        },
+        xaxis: {
+          categories: data.categories,
+        },
+      },
+      series: data.series,
+    });
+  }, [data, title]);
   return (
     <div>
       <Heading headingType="section" title={title} />
