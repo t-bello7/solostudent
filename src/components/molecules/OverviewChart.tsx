@@ -4,6 +4,7 @@ import { Heading } from '../atoms';
 import { OverviewChartInt } from '../../utils';
 
 const OverviewChart: FC<OverviewChartInt> = ({ chartType, title, data }) => {
+  console.log(data);
   const [chartState, setChartState] = useState({
     options: {
       chart: {

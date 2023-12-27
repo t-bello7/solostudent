@@ -2,7 +2,11 @@
 import { FC, useState, useEffect } from 'react';
 import { useStudentManager } from '../../hooks/useStudentManager';
 import { OverviewChart } from '../molecules';
-import { StudentDataInt, CourseDataInt } from '../../utils';
+import {
+  StudentDataInt,
+  CourseDataInt,
+  courseStudentNumber,
+} from '../../utils';
 
 const ChartSection: FC = () => {
   const { students } = useStudentManager();
@@ -16,7 +20,6 @@ const ChartSection: FC = () => {
       },
     ],
   });
-  const courseStudentNumber = (course: string, data: StudentDataInt[]) => data.filter((item) => item.department === course).length;
   const courseStatData = {
     Engineering: courseStudentNumber('engineering', studentData),
     'Creative Arts': courseStudentNumber('creativeArt', studentData),

@@ -14,6 +14,7 @@ import type {
   StudentDataInt,
   CourseDataInt,
 } from './types';
+import { courseStudentNumber } from './func';
 
 const renderWithRouter = (ui: ReactElement<string>, { route = '/' } = {}) => {
   // if (window !== undefined) {
@@ -38,4 +39,5 @@ export {
   EditableCellPropsInt,
   StudentDataInt,
   CourseDataInt,
+  courseStudentNumber,
 };
