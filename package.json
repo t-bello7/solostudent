@@ -9,7 +9,8 @@
     "test": "vitest run",
     "fix:lint": "eslint . --fix",
     "fix:prettify": "prettier --write --ignore-path .gitignore .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "cp ./node_modules/realm/dist/realm-js-wasm.wasm ./node_modules/.vite/deps"
   },
   "dependencies": {
     "@react-pdf/renderer": "^3.1.14",
@@ -57,6 +58,7 @@
     "postcss": "^8.4.31",
     "prettier": "3.x",
     "prettier-plugin-tailwindcss": "0.x",
+    "react-phone-input-2": "^2.15.1",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
