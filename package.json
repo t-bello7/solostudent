@@ -9,8 +9,7 @@
     "test": "vitest run",
     "fix:lint": "eslint . --fix",
     "fix:prettify": "prettier --write --ignore-path .gitignore .",
-    "preview": "vite preview",
-    "postinstall": "cp ./node_modules/realm/dist/realm-js-wasm.wasm ./node_modules/.vite/deps"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@react-pdf/renderer": "^3.1.14",

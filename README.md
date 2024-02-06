@@ -96,16 +96,20 @@ npm install --global yarn
 
 ### Local Setup <a name="local-setup"></a>
 
-1. Fork the repo, the clone this repository using the following command (remember to replace the github username in the url)
+0. Fork the repo, the clone this repository using the following command (remember to replace the github username in the url)
 
 ```sh
   git clone https://github.com/<your-github-username>/solostudent
 ```
 
-2. Go to the project folder
+1. Go to the project folder
 
 ```sh
 cd solostudent
+```
+2. Add this to the scripts key in package.json
+```
+  "postinstall": "cp ./node_modules/realm/dist/realm-js-wasm.wasm ./node_modules/.vite/deps"
 ```
 
 3.  Install the dependency required for the project using yarn package manager
@@ -113,6 +117,7 @@ cd solostudent
 ```sh
 yarn install
 ```
+
 
 4. Set up your .env file by duplicating the .env.sample and passing in the necessary parameters
 
